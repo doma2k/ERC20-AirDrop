@@ -23,28 +23,6 @@ contract MyToken {
         return msg.sender == owner;
     }
 
-    function transfer(address to, uint256 value) public returns (bool) {
-        require(isOwner(), "Not owner");
-        require(to != address(0), "ERC20: transfer to the zero address");
-        require(value <= balanceOf[msg.sender], "ERC20: insufficient balance");
-        
-        balanceOf[msg.sender] -= value;
-        balanceOf[to] += value;
-        
-        emit Transfer(msg.sender, to, value);
-        
-        return true;
-    }
-
-    function mint(address to, uint256 amount) public {
-        require(isOwner(), "Not owner");
-
-        balanceOf[to] += amount;
-        totalSupply += amount;
-
-        emit Transfer(address(0), to, amount);
-    }
-
     function airdrop(address[] memory recipients, uint256 amount) public {
         require(isOwner(), "Not owner");
 
